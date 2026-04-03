@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LumenDip — Exoplanet Transit Detector</title>
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===================== SCENE 1: DEEP SPACE ENTRY ===================== -->
+  <section class="scene" id="scene-1">
+    <canvas id="starfield"></canvas>
+    <div class="scene-content" id="intro-content">
+      <div class="logo-container">
+        <img src="assets/logo.png" alt="LumenDip" class="logo-img" id="logo" />
+        <div class="logo-pulse"></div>
+      </div>
+      <p class="tagline" id="tagline">Detecting worlds hidden in starlight</p>
+      <div class="scroll-hint" id="scroll-hint">
+        <span>SCROLL TO BEGIN</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </div>
+    <div class="heartbeat-bg" id="heartbeat-bg"></div>
+  </section>
+
+  <!-- ===================== SCENE 2: STAR LOCK-ON ===================== -->
+  <section class="scene" id="scene-2">
+    <div class="scene-content centered">
+      <div class="telescope-frame" id="telescope-frame">
+        <div class="crosshair top-left"></div>
+        <div class="crosshair top-right"></div>
+        <div class="crosshair bottom-left"></div>
+        <div class="crosshair bottom-right"></div>
+        <canvas id="star-canvas"></canvas>
+        <div class="lock-ring" id="lock-ring"></div>
+      </div>
+      <div class="hud-text" id="hud-text">
+        <div class="hud-line" id="hud-line-1">▶ TARGET STAR IDENTIFIED</div>
+        <div class="hud-line" id="hud-line-2">SPECTRAL CLASS: G2V &nbsp;|&nbsp; MAG: 5.46</div>
+        <div class="hud-line" id="hud-line-3">DISTANCE: 1,400 LY &nbsp;|&nbsp; MONITORING…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 3: THE TRANSIT ===================== -->
+  <section class="scene" id="scene-3">
+    <div class="scene-content centered">
+      <div class="transit-label" id="transit-label">TRANSIT IN PROGRESS</div>
+      <div class="transit-stage">
+        <canvas id="transit-canvas"></canvas>
+      </div>
+      <div class="curve-wrapper" id="curve-wrapper">
+        <div class="curve-title">PHOTOMETRIC LIGHT CURVE</div>
+        <canvas id="light-curve-canvas"></canvas>
+        <div class="curve-axis-x">TIME (hours)</div>
+        <div class="curve-axis-y">RELATIVE FLUX</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 4: AI DETECTION ===================== -->
+  <section class="scene" id="scene-4">
+    <div class="scene-content centered">
+      <div class="detection-panel" id="detection-panel">
+        <div class="detection-header">
+          <div class="pulse-dot"></div>
+          <span>SIGNAL DETECTED</span>
+        </div>
+        <div class="detection-grid">
+          <div class="det-item">
+            <div class="det-label">AI CONFIDENCE</div>
+            <div class="det-value" id="confidence-val">0%</div>
+            <div class="det-bar"><div class="det-fill" id="confidence-fill"></div></div>
+          </div>
+          <div class="det-item">
+            <div class="det-label">ORBITAL PERIOD</div>
+            <div class="det-value" id="period-val">—</div>
+          </div>
+          <div class="det-item">
+            <div class="det-label">PLANET RADIUS</div>
+            <div class="det-value" id="radius-val">—</div>
+          </div>
+          <div class="det-item">
+            <div class="det-label">TRANSIT DEPTH</div>
+            <div class="det-value" id="depth-val">—</div>
+          </div>
+        </div>
+        <div class="detection-footer">KOI-7923 &nbsp;|&nbsp; CANDIDATE CONFIRMED</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 5: INTERACTIVE BREAKDOWN ===================== -->
+  <section class="scene" id="scene-5">
+    <div class="scene-content centered">
+      <div class="breakdown-title">EXPLORE THE DATA</div>
+      <div class="breakdown-wrap">
+        <div class="toggle-group">
+          <button class="tog-btn active" id="btn-raw">RAW DATA</button>
+          <button class="tog-btn" id="btn-filtered">FILTERED</button>
+          <button class="tog-btn" id="btn-replay">↺ REPLAY</button>
+        </div>
+        <canvas id="interactive-curve"></canvas>
+        <div class="hover-tooltip" id="hover-tooltip"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCENE 6: SCALE EXPANSION ===================== -->
+  <section class="scene" id="scene-6">
+    <canvas id="multi-star-canvas"></canvas>
+    <div class="scene-content centered" id="scale-text">
+      <div class="scale-headline">Thousands of worlds.</div>
+      <div class="scale-sub">Hidden in light.</div>
+      <div class="scale-count" id="scale-count">0 candidates detected</div>
+    </div>
+  </section>
+
+  <!-- ===================== FINAL SCENE: ACTION ===================== -->
+  <section class="scene" id="scene-final">
+    <div class="scene-content centered">
+      <div class="final-headline">Ready to find your planet?</div>
+      <div class="final-sub">Upload your own photometric data and let LumenDip do the rest.</div>
+      <button class="cta-btn" id="cta-btn">
+        <span class="cta-glow"></span>
+        <span class="cta-text">RUN YOUR OWN DETECTION</span>
+      </button>
+      <div class="final-footer">
+        <span>Built with real NASA Kepler data</span>
+        <span class="dot-sep">·</span>
+        <span>Open source on GitHub</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPLOAD MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="modal-title">UPLOAD LIGHT CURVE DATA</div>
+      <div class="modal-drop" id="modal-drop">
+        <div class="drop-icon">⬆</div>
+        <div class="drop-text">Drop your .csv or .txt file here</div>
+        <div class="drop-sub">Time-flux columns &nbsp;|&nbsp; NASA format supported</div>
+        <input type="file" id="file-input" accept=".csv,.txt" />
+      </div>
+      <div class="modal-result" id="modal-result"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/starfield.js"></script>
+  <script src="js/transit.js"></script>
+  <script src="js/lightcurve.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
